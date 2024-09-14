@@ -1,0 +1,31 @@
+.marquee {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.cut-effect {
+    position: relative;
+    padding-left: 20px;
+    /* Optional padding for text positioning */
+    clip-path: polygon(20px 0%, 100% 0%, 100% 100%, 20px 100%, 0% 50%);
+    background-color: #28a745;
+    /* Green background for the span */
+    color: white;
+}
+
+.marquee p {
+    display: inline-block;
+    animation: scroll-left 10s linear infinite;
+    margin: 0;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(600%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
