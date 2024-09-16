@@ -11,7 +11,7 @@ function Navbar() {
                             <a className="nav-link fw-bold active" aria-current="page" href="#">Home</a>
                         </li>
                         <li className="nav-item fw-bold">
-                            <a className="nav-link" href="#">ABOUT</a>
+                            <a className="nav-link" href="#">BOOKS</a>
                         </li>
                         <li className="nav-item fw-bold">
                             <a className="nav-link" aria-disabled="true">CONTACT</a>

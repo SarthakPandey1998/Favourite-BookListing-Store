@@ -7,11 +7,17 @@ import ScrollReveal from 'scrollreveal';
 function BookListing({ dataList, handleDelete, data, handleUrlChange, handleBookChange, handleSubmit, edit, handleEdit }) {
 
   const[show,setShow] = useState(false);
-  function handleEditData(index) {
-    handleEdit(index);
-  }
+  const[index,setIndex] = useState();
 
   const revealRef = useRef(null);
+  const urlRef = useRef(null);
+
+  function handleEditData(index) {
+    handleEdit(index);
+    if(urlRef.current){
+      urlRef.current.focus();
+    }
+  }
 
  useEffect(()=>{
   const sr = ScrollReveal({
@@ -49,7 +55,7 @@ function BookListing({ dataList, handleDelete, data, handleUrlChange, handleBook
             <div className="d-flex justify-content-center">
               <div className="d-flex flex-column" id="formHeader">
                 <form className='d-flex  p-2 m-2' id="form" onSubmit={handleSubmit}>
-                  <input type='url' placeholder='Enter book cover page url' className='form-control text-black-50' value={data.url} onChange={handleUrlChange} />
+                  <input type='url' ref={urlRef} placeholder='Enter book cover page url' className='form-control text-black-50' value={data.url} onChange={handleUrlChange} />
                   <input type='text' placeholder='Enter book name' className='form-control text-black-50 mx-2' value={data.book} onChange={handleBookChange} />
                   <button type='submit' className='btn btn-success' data-bs-target="#itemsCard" data-bs-toggle="card" onClick={()=>setShow(true)}>{edit !== null ? "Save" : "Enter"}</button>
                 </form>
@@ -86,7 +92,7 @@ function BookListing({ dataList, handleDelete, data, handleUrlChange, handleBook
                 </div>
                 <div className='card-footer text-center'>
                   <button className='btn btn-warning' onClick={() => handleEditData(index)}>Edit</button>
-                  <button className='btn btn-danger mx-2' onClick={() => handleDelete(index)}>Delete</button>
+                  <button className='btn btn-danger mx-2' data-bs-toggle="modal" data-bs-target="#deleteModal" onClick={()=>setIndex(index)}>Delete</button>
                 </div>
               </div>
             </Draggable>
@@ -94,6 +100,23 @@ function BookListing({ dataList, handleDelete, data, handleUrlChange, handleBook
         </div>
 
 
+      </div>
+      <div className="modal fade" id="deleteModal">
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header bg-warning">
+                <h2>Delete Book</h2> 
+                <button type="button" className="btn btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div className="modal-body">
+                <h6>Are You sure you want to delete Book?</h6> 
+              </div>
+              <div className="modal-footer">
+                <button className="btn btn-danger" data-bs-dismiss="modal" onClick={() => handleDelete(index)}>Confirm</button>
+                <button className="btn btn-warning" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
       </div>
     </section>
   )
